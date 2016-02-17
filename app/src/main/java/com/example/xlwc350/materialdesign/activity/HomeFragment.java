@@ -1,21 +1,19 @@
 package com.example.xlwc350.materialdesign.activity;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.xlwc350.materialdesign.R;
+import com.example.xlwc350.materialdesign.beans.ListConge;
+import com.example.xlwc350.materialdesign.task.getCongesTask;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class HomeFragment extends Fragment {
@@ -27,6 +25,33 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+}
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+       // private void refresh(){
+        super.onActivityCreated(savedInstanceState);
+            Log.d("activité", "rafaichisement des données");
+            getCongesTask task = new getCongesTask(this.getActivity());
+
+            task.execute();
+
+            try {
+                ListConge conge = task.get();
+                task.cancel(true);
+                Log.e("libelle", "libelle = "+conge.getLibelle());
+
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                // TODO Auto-generated catch block
+
+                e.printStackTrace();
+
+            }
+        //}
+
 
     }
 
@@ -49,4 +74,6 @@ public class HomeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
+
 }

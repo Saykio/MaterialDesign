@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.xlwc350.materialdesign.R;
 import android.app.Activity;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 public class MessagesFragment extends Fragment {
@@ -21,12 +23,15 @@ public class MessagesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_consulter, container, false);
+
 
 
         // Inflate the layout for this fragment

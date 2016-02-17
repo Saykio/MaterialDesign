@@ -59,6 +59,32 @@ public class EvenementDAO extends DBAdapter{
 
     public EvenementBO getLastEvenementBO(){
         //TODO a modifier
-        return new EvenementBO(new Date(),new TypeEvenementBO(TypeEvenementBO.TYPE_SORTIE));
+//        List<EvenementBO> evenementBOs = new ArrayList<>();
+//        if(evenementBOs.isEmpty() || evenementBOs.get(evenementBOs.size()-1)== evenementBOs.get(TypeEvenementBO.TYPE_SORTIE)) {
+//          return  new EvenementBO(new Date(),  new TypeEvenementBO(TypeEvenementBO.TYPE_ENTREE));
+//        }else if (evenementBOs.get(evenementBOs.size()-1)== evenementBOs.get(TypeEvenementBO.TYPE_ENTREE))  {
+//            return new EvenementBO(new Date(), new TypeEvenementBO(TypeEvenementBO.TYPE_SORTIE));
+//        }else {
+//        return null; }
+
+//        List<EvenementBO> evenementBOs = new ArrayList<>();
+//        EvenementBO evenementBO =null;
+//
+//        if(!evenementBOs.isEmpty()){
+//            evenementBO = evenementBOs.get(evenementBOs.size()-1);
+//        }
+
+       this.open();
+        EvenementBO evenementBO =null;
+
+        Cursor cursor = db.query("evenement",new String[]{"date","type"},null,null,null,null, "date desc");
+        if (cursor.moveToNext()){
+            evenementBO = new EvenementBO(new Date(cursor.getLong(cursor.getColumnIndex("date"))),
+                    new TypeEvenementBO(cursor.getInt(cursor.getColumnIndex("type"))));
+        }
+
+        this.close();
+        return evenementBO;
+
     }
 }

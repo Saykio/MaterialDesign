@@ -1,6 +1,7 @@
 package com.example.xlwc350.materialdesign.bdd;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -25,7 +26,7 @@ public class DBAdapter {
 
 
         public DatabaseHelper(Context context) {
-            super(context, "demandeconge", null, 1);
+            super(context, "evenement", null, 1);
             this.context = context;
         }
 
@@ -43,6 +44,15 @@ public class DBAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         }
+    }
+    public boolean SupprimerProduit(long date){
+        return db.delete("evenement", "date="+date, null)>0;
+    }
+
+    public Cursor RecupereLaListe(){
+        return db.query("evenement", new String[]{
+                "date",
+                "type"},null,null,null,null,null);
     }
 
     public DBAdapter open() {
@@ -68,6 +78,13 @@ public class DBAdapter {
 
     public boolean SupprimerProduit(long id){
         return db.delete("demandeconge", "_id="+id, null)>0;
+    }
+     public Cursor RecupereLaListeDesProduits(){
+        return db.query("demandeconge", new String[]{
+                "_id",
+                "datedebut",
+                "datefin",
+                "motif"},null,null,null,null,null);
     }
 
     public Cursor RecupereLaListeDesProduits(){

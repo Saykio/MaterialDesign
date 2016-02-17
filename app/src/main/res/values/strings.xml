@@ -4,6 +4,14 @@
     <string name="action_search">Search</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="listemotifs">Liste des motifs</string>
+    <string-array name="motif">
+        <item>Liste des différents motifs</item>
+        <item>Congé individuel de formation</item>
+        <item>Congé maladie</item>
+        <item>RTT</item>
+        <item>Congé parternité/maternité</item>
+    </string-array>
 
     <string name="nav_item_home">Historique des demandes</string>
     <string name="nav_item_friends">Faire sa demande</string>
@@ -17,6 +25,9 @@
     <string name="err_msg_name">Enter your full name</string>
     <string name="err_msg_email">Enter valid email address</string>
     <string name="err_msg_password">Enter the password</string>
+    <string name="red_string">Red</string>
+    <string name="blue_string">Blue</string>
+    <string name="green_string">Green</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
