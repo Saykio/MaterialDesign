@@ -72,17 +72,6 @@
             android:layout_below="@+id/datefin"
             android:layout_centerHorizontal="true" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/textint"
-            android:layout_below="@+id/motif"
-            android:layout_centerHorizontal="true"
-            android:singleLine="true"
-            android:textIsSelectable="false"
-            android:hint="N°employe" />
-
 
     </RelativeLayout>
 

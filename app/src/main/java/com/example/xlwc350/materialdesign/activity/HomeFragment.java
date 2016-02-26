@@ -94,8 +94,16 @@ public class HomeFragment extends Fragment {
         try {
             lesConges = task.get();
             task.cancel(true);
-            CGAdapter cgAdapter = new CGAdapter(this.getContext() , R.layout.conge_item, lesConges.getConge());
-            lv.setAdapter(cgAdapter);
+
+            if(lesConges==null) {
+                Log.e("test", "lesConges==null");
+            }
+            if(lesConges.getConge()==null){
+                Log.e("test", "lesConge.getConge()==null");
+            }else {
+                CGAdapter cgAdapter = new CGAdapter(this.getContext(), R.layout.conge_item, lesConges.getConge());
+                lv.setAdapter(cgAdapter);
+            }
 //                Log.e("libelle", "libelle = " + conge.getConge().get(0).getMotif());
 //                List<String> conges = new ArrayList<>();
 //                for (Conge conge1 : conge.getConge()){

@@ -30,8 +30,8 @@
     <string name="blue_string">Blue</string>
     <string name="green_string">Green</string>
     <string name="create_account">Créer un compte</string>
-    <string name="nom">Prénom</string>
-    <string name="prenom">Nom</string>
+    <string name="nom">Nom</string>
+    <string name="prenom">Prénom</string>
     <string name="solde">Solde de vos congés</string>
     <string name="connect">Se connecter</string>
     <string name="sinscrire">S\'inscrire</string>

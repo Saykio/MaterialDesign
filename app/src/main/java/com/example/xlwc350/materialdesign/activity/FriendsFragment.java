@@ -64,17 +64,16 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
         datedebut = (DatePicker)this.getActivity().findViewById(R.id.datedebut);
         datefin = (DatePicker)this.getActivity().findViewById(R.id.datefin);
         motif = (Spinner)this.getActivity().findViewById(R.id.motif);
-        textint = (EditText)this.getActivity().findViewById(R.id.textint);
         enregister = (Button)this.getActivity().findViewById(R.id.enregistrer);
         enregister.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.enregistrer) {
-            if (textint.getText().toString().equals("")) {
-                Toast.makeText(this.getContext(), "Remplir le N°employe svp !", Toast.LENGTH_SHORT).show();
-                return;
-            }
+//            if (textint.getText().toString().equals("")) {
+//                Toast.makeText(this.getContext(), "Remplir le N°employe svp !", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Log.d("bonsoir la france", "bonsoir");
             Conge conge = new Conge();
@@ -82,7 +81,6 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
             Log.d("datedebut", sdf.format(this.recupDate(datefin)));
             conge.setDatefin(this.recupDate(datedebut));
             conge.setDatedebut((this.recupDate(datefin)));
-            //conge.setId_employe(Integer.valueOf(textint.getText().toString()));
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
             int identifiant = preferences.getInt("id_employe", -1);
             if (identifiant == -1) {

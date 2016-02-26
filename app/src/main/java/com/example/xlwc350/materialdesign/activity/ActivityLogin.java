@@ -41,7 +41,7 @@ public class ActivityLogin extends Activity {
             }
         });
 
-        final Button createButton =(Button) findViewById(R.id.create_account);
+        final Button createButton = (Button) findViewById(R.id.create_account);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,39 +51,38 @@ public class ActivityLogin extends Activity {
         });
     }
 
-    public void connexion(ListEmploye listEmploye){
+    public void connexion(ListEmploye listEmploye) {
         boolean flagConnection = false;
 
 
         String nom = ((EditText) findViewById(R.id.user_nom)).getText().toString().toLowerCase();
         String prenom = ((EditText) findViewById(R.id.user_prenom)).getText().toString().toLowerCase();
+        Log.e("test id", "id=" + nom + prenom);
 
 
         for (Employe employe : listEmploye.getEmploye()) {
             if (nom.equals(employe.getNom_employe().toLowerCase()) && prenom.equals(employe.getPrenom_employe().toLowerCase())) {
 
-                Integer id = employe.getId_employe();
-                //TODO sauvegarder dans les preferences
-                Log.e("test id", "id=" + id);
-//                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//                SharedPreferences.Editor editor = preferences.edit();
-//                editor.putInt("id_employe", id);
-//                editor.commit();
-            }
-
-
+                    Integer id = employe.getId_employe();
+            //TODO sauvegarder dans les preferences
+            Log.e("test id", "id=" + id);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("id_employe", id);
+                editor.commit();
                 flagConnection = true;
                 break;
+            }
+
         }
 
 
-
-        if (flagConnection) {
-            Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(ActivityLogin.this, "Connexion impossible, user inconnu", Toast.LENGTH_LONG).show();
-        }
+            if (flagConnection) {
+                Intent intent = new Intent(ActivityLogin.this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(ActivityLogin.this, "Connexion impossible, user inconnu", Toast.LENGTH_LONG).show();
+            }
     }
 }
 
