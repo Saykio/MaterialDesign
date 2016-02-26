@@ -14,11 +14,11 @@ import com.example.xlwc350.materialdesign.rest.CongeDeleteMethode;
 /**
  * Created by xlwc350 on 23/02/2016.
  */
-public class deleteCongeTask extends AsyncTask<Conge,Void, Response> {
+public class DeleteCongeTask extends AsyncTask<Conge,Void, Response> {
     private Context context;
     private Fragment fragment;
 
-    public deleteCongeTask(Context context, Fragment fragment) {
+    public DeleteCongeTask(Context context, Fragment fragment) {
 
         this.context = context;
         this.fragment = fragment;

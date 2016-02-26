@@ -11,10 +11,10 @@ import com.example.xlwc350.materialdesign.rest.EmployePutMethode;
 /**
  * Created by xlwc350 on 25/02/2016.
  */
-public class putEmployeTask  extends AsyncTask<Employe,Void, Response> {
+public class PutEmployeTask extends AsyncTask<Employe,Void, Response> {
     private Context context;
 
-    public putEmployeTask(Context context) {
+    public PutEmployeTask(Context context) {
         this.context = context;
     }
 

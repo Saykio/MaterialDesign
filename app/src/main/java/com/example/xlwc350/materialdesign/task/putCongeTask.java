@@ -15,10 +15,10 @@ import com.example.xlwc350.materialdesign.rest.CongeRestMethode;
 /**
  * Created by xlwc350 on 23/02/2016.
  */
-public class putCongeTask extends AsyncTask<Conge,Void, Response> {
+public class PutCongeTask extends AsyncTask<Conge,Void, Response> {
         private Context context;
 
-        public putCongeTask(Context context) {
+        public PutCongeTask(Context context) {
                 this.context = context;
         }
 
