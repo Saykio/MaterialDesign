@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.xlwc350.materialdesign.activity.HomeFragment">
+    tools:context="stage.laposte.xlwc350.materialdesign.activity.HomeFragment">
 
 
     <TextView
