@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.xlwc350.materialdesign.R;
 import com.example.xlwc350.materialdesign.beans.Conge;
-import com.example.xlwc350.materialdesign.task.putCongeTask;
+import com.example.xlwc350.materialdesign.task.PutCongeTask;
 
 import android.app.Activity;
 import android.widget.ArrayAdapter;
@@ -20,10 +19,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -93,7 +90,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
             }
             conge.setId_employe(identifiant);
             conge.setMotif(motif.getSelectedItem().toString());
-            putCongeTask task = new putCongeTask(this.getContext());
+            PutCongeTask task = new PutCongeTask(this.getContext());
             task.execute(conge);
         }
     }

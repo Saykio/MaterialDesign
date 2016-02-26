@@ -1,6 +1,5 @@
 package com.example.xlwc350.materialdesign.activity;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,20 +15,14 @@ import com.example.xlwc350.materialdesign.R;
 import com.example.xlwc350.materialdesign.bdd.CGAdapter;
 import com.example.xlwc350.materialdesign.beans.Conge;
 import com.example.xlwc350.materialdesign.beans.ListConge;
-import com.example.xlwc350.materialdesign.task.deleteCongeTask;
-import com.example.xlwc350.materialdesign.task.getCongesTask;
+import com.example.xlwc350.materialdesign.task.DeleteCongeTask;
+import com.example.xlwc350.materialdesign.task.GetCongesTask;
 
 import android.app.Activity;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
@@ -79,7 +72,7 @@ public class HomeFragment extends Fragment {
         switch(item.getItemId()) {
             case SUPPRIMER :
                 Log.d("bonsoir", id.toString());
-                deleteCongeTask task = new deleteCongeTask(this.getContext(),this);
+                DeleteCongeTask task = new DeleteCongeTask(this.getContext(),this);
                 task.execute(conge);
                 break;
         }
@@ -89,10 +82,10 @@ public class HomeFragment extends Fragment {
         Log.e("Test refresh","test");
         lesConges = new ListConge();
         Log.d("activité", "rafaichisement des données");
-        getCongesTask task = new getCongesTask(this.getActivity());
+        GetCongesTask task = new GetCongesTask(this.getActivity());
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
-        int identifiant = preferences.getInt("id_employe", -1);
-        if (identifiant == -1) {
+        int identifiant = preferences.getInt("id_employe", 0);
+        if (identifiant == 0) {
             Log.e("test","test identifiant");
         }
         task.execute(identifiant);

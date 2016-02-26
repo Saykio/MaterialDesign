@@ -65,10 +65,10 @@ public class ActivityLogin extends Activity {
                 Integer id = employe.getId_employe();
                 //TODO sauvegarder dans les preferences
                 Log.e("test id", "id=" + id);
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("id_employe", id);
-                editor.commit();
+//                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//                SharedPreferences.Editor editor = preferences.edit();
+//                editor.putInt("id_employe", id);
+//                editor.commit();
             }
 
 
