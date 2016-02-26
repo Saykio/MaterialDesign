@@ -1,33 +1,35 @@
 package com.example.xlwc350.materialdesign.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.xlwc350.materialdesign.R;
+import com.example.xlwc350.materialdesign.beans.Conge;
+import com.example.xlwc350.materialdesign.task.putCongeTask;
 
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
-public class FriendsFragment extends Fragment {
+public class FriendsFragment extends Fragment implements View.OnClickListener {
 
 //    DatePicker datedebut, datefin;
 //
@@ -35,7 +37,12 @@ public class FriendsFragment extends Fragment {
 //    EditText idemploye;
 //    RequestQueue requestQueue;
 //    String insertUrl = "http://localhost/testbddandroid/insertconge.php";
-    Spinner spinner;
+    private DatePicker datedebut;
+    private DatePicker datefin;
+    private Spinner motif;
+    private EditText textint;
+    private Button enregister;
+
 
     Button button;
 
@@ -50,13 +57,64 @@ public class FriendsFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Spinner spinner =(Spinner)this.getActivity().findViewById(R.id.spinner);
+        Spinner spinner =(Spinner)this.getActivity().findViewById(R.id.motif);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this.getActivity(), R.array.motif, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        datedebut = (DatePicker)this.getActivity().findViewById(R.id.datedebut);
+        datefin = (DatePicker)this.getActivity().findViewById(R.id.datefin);
+        motif = (Spinner)this.getActivity().findViewById(R.id.motif);
+        textint = (EditText)this.getActivity().findViewById(R.id.textint);
+        enregister = (Button)this.getActivity().findViewById(R.id.enregistrer);
+        enregister.setOnClickListener(this);
     }
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.enregistrer) {
+            if (textint.getText().toString().equals("")) {
+                Toast.makeText(this.getContext(), "Remplir le N°employe svp !", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Log.d("bonsoir la france", "bonsoir");
+            Conge conge = new Conge();
+            Log.d("datedebut", sdf.format(this.recupDate(datedebut)));
+            Log.d("datedebut", sdf.format(this.recupDate(datefin)));
+            conge.setDatefin(this.recupDate(datedebut));
+            conge.setDatedebut((this.recupDate(datefin)));
+            //conge.setId_employe(Integer.valueOf(textint.getText().toString()));
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
+            int identifiant = preferences.getInt("id_employe", -1);
+            if (identifiant == -1) {
+                Log.e("test","test identifiant");
+            }
+            conge.setId_employe(identifiant);
+            conge.setMotif(motif.getSelectedItem().toString());
+            putCongeTask task = new putCongeTask(this.getContext());
+            task.execute(conge);
+        }
+    }
+
+
+
+    public Date recupDate(DatePicker datePicker){
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year = datePicker.getYear();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        return calendar.getTime();
+
+    }
+
+
+
+
+
+
 
 //        requestQueue = Volley.newRequestQueue(this.getActivity().getApplicationContext());
 //

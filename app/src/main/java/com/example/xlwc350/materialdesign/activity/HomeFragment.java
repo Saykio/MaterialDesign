@@ -1,10 +1,14 @@
 package com.example.xlwc350.materialdesign.activity;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,6 +16,7 @@ import com.example.xlwc350.materialdesign.R;
 import com.example.xlwc350.materialdesign.bdd.CGAdapter;
 import com.example.xlwc350.materialdesign.beans.Conge;
 import com.example.xlwc350.materialdesign.beans.ListConge;
+import com.example.xlwc350.materialdesign.task.deleteCongeTask;
 import com.example.xlwc350.materialdesign.task.getCongesTask;
 
 import android.app.Activity;
@@ -32,6 +37,9 @@ public class HomeFragment extends Fragment {
 
     private ListView lv;
     private ListConge lesConges;
+    private static final int SUPPRIMER = 100;
+    private static final int EDITER = 200;
+    private static final int NOMENU = 0;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     public HomeFragment() {
         // Required empty public constructor
@@ -47,18 +55,54 @@ public class HomeFragment extends Fragment {
        // private void refresh(){
         super.onActivityCreated(savedInstanceState);
         lv = (ListView) this.getActivity().findViewById(R.id.listeconge);
+        registerForContextMenu(lv);
+        this.refreshdata();
+
+        //}
+
+
+
+    }
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Action");
+        menu.add(NOMENU, SUPPRIMER, 0, "Supprimer");
+        menu.add(NOMENU, EDITER, 1, "Editer");
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        lv = (ListView) this.getActivity().findViewById(R.id.listeconge);
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int index = info.position;
+        Integer id = lesConges.getConge().get(index).getId_conge();
+        Conge conge = lesConges.getConge().get(index);
+        switch(item.getItemId()) {
+            case SUPPRIMER :
+                Log.d("bonsoir", id.toString());
+                deleteCongeTask task = new deleteCongeTask(this.getContext(),this);
+                task.execute(conge);
+                break;
+        }
+        return true;
+    }
+    public void refreshdata(){
+        Log.e("Test refresh","test");
         lesConges = new ListConge();
-            Log.d("activité", "rafaichisement des données");
-            getCongesTask task = new getCongesTask(this.getActivity());
+        Log.d("activité", "rafaichisement des données");
+        getCongesTask task = new getCongesTask(this.getActivity());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
+        int identifiant = preferences.getInt("id_employe", -1);
+        if (identifiant == -1) {
+            Log.e("test","test identifiant");
+        }
+        task.execute(identifiant);
 
-            task.execute();
 
-
-            try {
-                ListConge conge = task.get();
-                task.cancel(true);
-                CGAdapter cgAdapter = new CGAdapter(this.getContext() , R.layout.conge_item, conge.getConge());
-                lv.setAdapter(cgAdapter);
+        try {
+            lesConges = task.get();
+            task.cancel(true);
+            CGAdapter cgAdapter = new CGAdapter(this.getContext() , R.layout.conge_item, lesConges.getConge());
+            lv.setAdapter(cgAdapter);
 //                Log.e("libelle", "libelle = " + conge.getConge().get(0).getMotif());
 //                List<String> conges = new ArrayList<>();
 //                for (Conge conge1 : conge.getConge()){
@@ -70,18 +114,14 @@ public class HomeFragment extends Fragment {
 
 
 
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                // TODO Auto-generated catch block
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // TODO Auto-generated catch block
 
-                e.printStackTrace();
-            }
-
-
-        //}
-
+            e.printStackTrace();
+        }
 
 
     }

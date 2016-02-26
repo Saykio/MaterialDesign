@@ -9,7 +9,7 @@ import com.example.xlwc350.materialdesign.rest.CongeRestMethode;
 /**
  * Created by xlwc350 on 16/02/2016.
  */
-public class getCongesTask extends AsyncTask<Void,Void, ListConge>{
+public class getCongesTask extends AsyncTask<Integer,Void, ListConge>{
 
     private Context context;
 
@@ -18,10 +18,10 @@ public getCongesTask(Context context){
         }
 
 @Override
-protected ListConge doInBackground(Void... params) {
+protected ListConge doInBackground(Integer... params) {
 
         CongeRestMethode congeRestMethod = new CongeRestMethode(context);
-        ListConge lesConges = congeRestMethod.getCongesRest();
+        ListConge lesConges = congeRestMethod.getCongeRestById(params[0]);
         return lesConges;
         }
 

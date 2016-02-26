@@ -8,8 +8,8 @@ import java.util.Date;
 public class Conge {
     private Integer id_conge;
     private Integer id_employe;
-    private Date datedebut;
-    private Date datefin;
+    private Date date_debut;
+    private Date date_fin;
     private String motif;
 
     public String getMotif() {
@@ -38,18 +38,18 @@ public class Conge {
     }
 
     public Date getDatedebut() {
-        return datedebut;
+        return date_debut;
     }
 
-    public void setDatedebut(Date datedebut) {
-        this.datedebut = datedebut;
+    public void setDatedebut(Date date_debut) {
+        this.date_debut = date_debut;
     }
 
     public Date getDatefin() {
-        return datefin;
+        return date_fin;
     }
 
-    public void setDatefin(Date datefin) {
-        this.datefin = datefin;
+    public void setDatefin(Date date_fin) {
+        this.date_fin = date_fin;
     }
 }
